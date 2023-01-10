@@ -1,11 +1,13 @@
+import { Header } from './components/Header'
+import { InputTaks } from './components/InputTaks'
+import './global.css'
 
 function App() {
-
-
   return (
-    <div className="App">
-      
-    </div>
+    <>
+      <Header/>
+      <InputTaks/>
+    </>
   )
 }
 
