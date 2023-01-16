@@ -1,8 +1,17 @@
 import styles from './styles.module.css'
 
 import { v4 as uuidv4 } from 'uuid';
-import { Circle, CheckCircle, Trash } from 'phosphor-react';
-const mok = [
+import { Circle, CheckCircle, Trash, ClipboardText } from 'phosphor-react';
+import { useState } from 'react';
+
+interface mok {
+  id?: string;
+  content?: string;
+  done?: boolean;
+}
+
+
+const mok:mok[] = [
   {
     id: uuidv4(),
     content: 'Fazer um bolo',
@@ -27,6 +36,7 @@ const mok = [
 
 export function TaskList(){
 
+  const [taskList,setTaskList] = useState<mok[]>([...mok])
 
   return(
     <div className={styles.container}>
@@ -49,11 +59,12 @@ export function TaskList(){
             <span>1 de 3</span>
           </div>
         </div>
+
+        {taskList.length != 0 ? (
         <div className={styles.main}>
           <ul>
-          {mok.map((task)=>{
+          {taskList.map((task)=>{
             return(
-              <>
                 <li key={task.id}>
                   <span>
                     <Circle 
@@ -63,11 +74,23 @@ export function TaskList(){
                   <p>{task.content}</p>
                   <span><Trash/></span>
                 </li>
-              </>
             )
           })}
           </ul>
         </div>
+        ) : (
+          <div className={styles.mainEmpty}>
+            <hr/>
+            <ClipboardText
+              size={56}
+              color="var(--gray-400)"
+              />
+            <div className={styles.mainEmptyContent}>
+              <p style={{fontWeight: '700'}}>Você ainda não tem tarefas cadastradas</p>
+              <p>Crie tarefas e organize seus itens a fazer</p>
+            </div>
+          </div>
+        )}
       </div>
       
     </div>

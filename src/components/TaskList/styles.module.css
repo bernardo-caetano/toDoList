@@ -76,4 +76,22 @@
 .main p{
   font-size: 0.875rem;
   color: var(--gray-100);
+  width: 100%;
+}
+
+.mainEmpty{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.mainEmpty hr {
+  margin-bottom: 4rem;
+  width: 100%;
+  border: 1px solid var(--gray-400);
+}
+
+.mainEmptyContent p:first-child{
+  margin-top: 1rem;
 }
