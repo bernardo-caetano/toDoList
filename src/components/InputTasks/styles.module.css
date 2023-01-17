@@ -26,7 +26,7 @@
   border: none;
 }
 
-.container input[type="text"]{
+.container textarea{
   width: 39.875rem;
   height: 3.375rem;
   padding: 1rem;

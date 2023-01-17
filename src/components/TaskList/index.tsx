@@ -1,17 +1,18 @@
 import styles from './styles.module.css'
+import { InputTasks } from '../InputTasks'
 
 import { v4 as uuidv4 } from 'uuid';
 import { Circle, CheckCircle, Trash, ClipboardText } from 'phosphor-react';
 import { useState } from 'react';
 
-interface mok {
+interface data {
   id?: string;
   content?: string;
   done?: boolean;
 }
 
 
-const mok:mok[] = [
+const data:data[] = [
   {
     id: uuidv4(),
     content: 'Fazer um bolo',
@@ -29,17 +30,27 @@ const mok:mok[] = [
   },
   {
     id: uuidv4(),
-    content: 'Visitar um parente',
+    content: 'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer. E se eu colocasse mais coisa aqui, será que quebra linha',
     done: true,
   }
 ]
 
 export function TaskList(){
 
-  const [taskList,setTaskList] = useState<mok[]>([...mok])
+  const [taskList,setTaskList] = useState<data[]>([...data])
+  const [newTask, setNewTask] = useState<string>('')
+
+  // function handleToggleTask(id: string){
+
+  // }
+
+  // function handleNewTask(e: string){
+  //   setNewTask(newTask => ...newTask,e)
+  // }
 
   return(
     <div className={styles.container}>
+      <InputTasks/>
       <div className={styles.content}>
         <div className={styles.header}>
           <div className={styles.headerWrapper}>
