@@ -18,6 +18,13 @@
 
   --purple: #8284fa;
   --purple-dark: #5e60ce;
+
+  overflow-x: hidden;
+}
+
+:focus{
+  outline: transparent;
+  box-shadow: 0 0 0 2px var(--purple);
 }
 
 *{
@@ -36,5 +43,12 @@ body, input, textarea, button {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 1rem;
+  
+}
+
+@media screen and (max-width:768px) {
+  html {
+    font-size: 87.5%;
+  }
   
 }

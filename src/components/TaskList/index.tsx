@@ -1,8 +1,7 @@
 import styles from './styles.module.css'
-import { InputTasks } from '../InputTasks'
 
 import { v4 as uuidv4 } from 'uuid';
-import { Circle, CheckCircle, Trash, ClipboardText } from 'phosphor-react';
+import { PlusCircle, Circle, CheckCircle, Trash, ClipboardText } from 'phosphor-react';
 import { useState } from 'react';
 
 interface data {
@@ -11,46 +10,61 @@ interface data {
   done?: boolean;
 }
 
-
-const data:data[] = [
-  {
-    id: uuidv4(),
-    content: 'Fazer um bolo',
-    done: false,
-  },
-  {
-    id: uuidv4(),
-    content: 'Ir caminhar',
-    done: false,
-  },
-  {
-    id: uuidv4(),
-    content: 'Terminar o curso',
-    done: false,
-  },
-  {
-    id: uuidv4(),
-    content: 'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer. E se eu colocasse mais coisa aqui, será que quebra linha',
-    done: true,
-  }
-]
-
 export function TaskList(){
 
-  const [taskList,setTaskList] = useState<data[]>([...data])
-  const [newTask, setNewTask] = useState<string>('')
+  const [taskList,setTaskList] = useState<data[]>([])
+  const [newTaskText,setNewTaskText] = useState<string>('')
 
-  // function handleToggleTask(id: string){
+  const countDone = taskList.filter((task) => task.done)
 
-  // }
+  function handleCreateNewTask() {
+    (event as Event).preventDefault();
+    setTaskList(
+      [...taskList,
+        {
+          id:uuidv4(),
+          content:newTaskText,
+          done:false
+        }])
+    setNewTaskText('')
+  }
 
-  // function handleNewTask(e: string){
-  //   setNewTask(newTask => ...newTask,e)
-  // }
+  function handleNewTaskChange(){
+    setNewTaskText(((event as Event).target as HTMLInputElement).value)
+  }
+
+  function handleToggleCheckTask(id:string | undefined){
+    const newTaskListWithCheckTask = taskList.map((task) => {
+      if(task.id == id){
+        return{...task,done:!task.done}
+      }else{
+        return{...task}
+      }
+    })
+    setTaskList(newTaskListWithCheckTask)
+  }
+
+  function handleDeleteTask(id: string | undefined){
+    const newTaskListWithoutDeleteOne = taskList.filter(task => task.id !== id)
+    setTaskList(newTaskListWithoutDeleteOne)
+  }
 
   return(
     <div className={styles.container}>
-      <InputTasks/>
+      <form onSubmit={handleCreateNewTask} className={styles.formContainer}>
+        <input
+          type="text"
+          placeholder='Adicione uma nova tarefa'
+          onChange={handleNewTaskChange}
+          value={newTaskText}
+        />
+
+        <button type="submit">
+          Criar 
+          <PlusCircle size={16}/>
+        </button>
+
+      </form>
       <div className={styles.content}>
         <div className={styles.header}>
           <div className={styles.headerWrapper}>
@@ -59,7 +73,7 @@ export function TaskList(){
             >
               Tarefas criadas
             </p>
-            <span>4</span>
+            <span>{taskList.length}</span>
           </div>
           <div className={styles.headerWrapper}>
             <p
@@ -67,7 +81,7 @@ export function TaskList(){
             >
               Concluídas
             </p>
-            <span>1 de 3</span>
+            <span>{countDone.length} de {taskList.length}</span>
           </div>
         </div>
 
@@ -77,13 +91,34 @@ export function TaskList(){
           {taskList.map((task)=>{
             return(
                 <li key={task.id}>
-                  <span>
-                    <Circle 
-                      size={17.5}
+                  <span
+                    onClick={() => handleToggleCheckTask(task.id)}
+                  >
+                    {task.done ? (
+                      <CheckCircle 
+                      size={24}
                       color="var(--blue)"
-                    /></span>
-                  <p>{task.content}</p>
-                  <span><Trash/></span>
+                    />
+                    ) : (
+                      <Circle 
+                      size={24}
+                      color="var(--blue)"
+                    />
+                    )}
+                    
+                    </span>
+                    {task.done ? (
+                      <p
+                        style={{color:'var(--gray-300)'}}
+                      ><s>{task.content}</s></p>
+                    ) : (
+                      <p>{task.content}</p>
+                    )}
+                  <span
+                    onClick={() => handleDeleteTask(task.id)}
+                  >
+                    <Trash size={24}/>
+                  </span>
                 </li>
             )
           })}

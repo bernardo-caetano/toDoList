@@ -2,13 +2,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column; 
 }
 
 .content{
   max-width: 46rem;
-  width: 46rem;
+  width: 100%;
   margin-top: 4rem;
 }
+
 
 .header{
   display: flex;
@@ -61,7 +63,7 @@
   padding: 1rem;
   gap: 0.75rem;
 
-  width: 46rem;
+  
   height: 4.5rem;
   background: var(--gray-500);
   border: 1px solid var(--gray-400);
@@ -95,4 +97,52 @@
 
 .mainEmptyContent p:first-child{
   margin-top: 1rem;
+}
+
+.formContainer{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.5rem;
+  z-index: 1;
+
+  margin-top: -1.7rem;
+}
+
+.formContainer button[type="submit"]{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.875rem;
+
+  padding: 1rem;
+  border-radius: 8px;
+  background: var(--blue-dark);
+  border: none;
+}
+
+.formContainer input[type="text"]{
+  width: 39.875rem;
+  height: 3.375rem;
+  padding: 1rem;
+
+  background: var(--gray-500);
+  border: 1px solid var(--gray-700);
+  border-radius: 8px;
+
+  color: var(--white);
+  
+
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
 }
